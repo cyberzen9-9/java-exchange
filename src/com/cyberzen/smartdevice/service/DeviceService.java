@@ -7,7 +7,7 @@ import java.util.List;
 
 public class DeviceService {
 
-    private DeviceStore deviceStore;
+    private final DeviceStore deviceStore;
 
     public DeviceService(DeviceStore deviceStore) {
 
@@ -22,12 +22,13 @@ public class DeviceService {
         if (device == null){
             throw new IllegalArgumentException("设备不能为空!");
         }
-        if (device.getDeviceId() == null ||
-                device.getDeviceId().isBlank()){
+        String deviceId = device.getDeviceId();
+        if (deviceId == null ||
+                deviceId.isBlank()){
             throw new IllegalArgumentException("设备编号不能为空!");
         }
 
-        if (deviceStore.findById(device.getDeviceId()) != null){
+        if (deviceStore.findById(deviceId) != null){
             throw new IllegalArgumentException("设备已存在!");
         }
 
@@ -37,7 +38,20 @@ public class DeviceService {
     }
     //F2 查询设备 findDeviceById()、findAllDevices()
     public SmartDevice findDeviceById(String deviceId){
-        return deviceStore.findById(deviceId);
+        //设备编号不能为空
+        if (deviceId == null || deviceId.isBlank()){
+            throw new IllegalArgumentException("查询设备编号不能为空!");
+        }
+
+        SmartDevice device = deviceStore.findById(deviceId);
+
+        //查询到的设备要存在
+        if (device == null){
+            throw  new IllegalArgumentException("设备" + deviceId + "不存在!");
+        }
+
+
+        return device;
     }
     public List<SmartDevice> findAllDevices(){
         return deviceStore.findAll();
