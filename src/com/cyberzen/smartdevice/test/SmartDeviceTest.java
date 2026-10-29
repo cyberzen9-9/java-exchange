@@ -37,8 +37,9 @@ public class SmartDeviceTest {
         //遍历集合
 
         for(SmartDevice device : devices){
-            device.showDeviceInfo();
-            device.execute();
+            System.out.println(device.showDeviceInfo());
+            System.out.println(device.execute());
+            device.finishTask();
             System.out.println("--------------------");
 
         }
@@ -54,7 +55,7 @@ public class SmartDeviceTest {
 
         //使用增强for循环统一充电
         for(Rechargeable rechargeable : rechargeables){
-            rechargeable.charge();
+            System.out.println(rechargeable.charge());
         }
 
     }

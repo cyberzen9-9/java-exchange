@@ -1,21 +1,28 @@
 package com.cyberzen.smartdevice.model;
 
 import com.cyberzen.smartdevice.capability.Rechargeable;
+import com.cyberzen.smartdevice.enums.DeviceType;
 
-public class InspectionRobot extends SmartDevice implements Rechargeable {
+public final class InspectionRobot extends SmartDevice implements Rechargeable {
 
     public InspectionRobot(String deviceID, String deviceName) {
         super(deviceID, deviceName);
     }
 
     @Override
-    public void execute() {
-        System.out.println("正在执行区域巡检任务");
+    String taskDescription() {
+        return "正在执行区域巡检任务";
     }
 
     //重写充电方法
     @Override
-    public void charge() {
-        System.out.println("巡检机器人正在充电");
+    public String charge() {
+        startCharging();
+        return "巡检机器人正在充电";
+    }
+
+    @Override
+    public DeviceType getDeviceType() {
+        return DeviceType.INSPECTION_ROBOT;
     }
 }
